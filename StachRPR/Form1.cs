@@ -16,82 +16,51 @@ namespace StachRPR
         public Form1()
         {
             InitializeComponent();
-            GenerovaniMrizky();
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Dock = DockStyle.Fill;
+            GenerovaniMrizky(70, 40, 20, pictureBox1);
+            Panel bomba = new Panel();
+            bomba.Size = new Size();
+            Controls.Add(bomba);
+            Controls.Add(pictureBox1);
         }
 
-        Panel mrizka;
-        
+        Panel okno = new Panel();
+
         /// ////////////////////////////////////////////////
-        
-        public void GenerovaniMrizky()
+
+        public void GenerovaniMrizky(int sloupec, int radek, int velikost, PictureBox picturebox)
         {
+            Bitmap bitmap = new Bitmap(sloupec * velikost, radek * velikost);
 
-            /// 0 = prazdne misto
-            /// 1 = robot
-            /// 2 = misto prijmu
-            /// 3 = misto dodani
-            
-            // Mrizka
-
-            int radek = 5;
-            int sloupec = 5;
-            int velikost = 50;
-            int robotx;
-
-            mrizka = new Panel();
-            mrizka.Size = new Size(radek * velikost, sloupec * velikost);
-            mrizka.Location = new Point(0, 0);
-
-            int[,] plocha = new int[radek, sloupec];
-
-            // Robot 
-
-            Random rng = new Random();
-            robotx = rng.Next(radek);
-            Console.WriteLine("X robota: " + (robotx+1));
-            int roboty = rng.Next(sloupec);
-            Console.WriteLine("Y robota: " + (roboty+1));
-            
-            for (int x = 0; x < radek; x++)
+            for (int x = 0; x <= sloupec; x++)
             {
-                for(int y = 0; y < sloupec; y++)
+                Graphics g = Graphics.FromImage(bitmap);
+                Pen pen = new Pen(Color.Black);
+                for (int y = 0; y <= radek; y++)
                 {
-                    plocha[x, y] = 0;
-                    Panel mriz = new Panel();
-                    mriz.Location = new Point((x * velikost), (y * velikost));
-                    mriz.Size = new Size(velikost, velikost);
-                    mriz.BorderStyle = BorderStyle.FixedSingle;
-                    mriz.BackColor = SystemColors.Control;
 
-                    if(robotx == x&& roboty == y)
-                    { 
-                        plocha[x, y] = 1;
-                        mriz.BackColor = Color.Red;
-                    }
 
-                    mrizka.Controls.Add(mriz);
-
-                    
+                    g.DrawLine(pen, 0, y * velikost, sloupec * velikost, y * velikost);
                 }
-                
+
+                g.DrawLine(pen, x * velikost, 0, x * velikost, radek * velikost);
             }
 
-            Controls.Add(mrizka);
-
-            // Kontrola konzole
-            Console.WriteLine("\n\nMrizka:");
-            for (int y = 0; y < sloupec; y++)
-            {
-                for (int x = 0; x < radek; x++)
-                {
-                    Console.Write(plocha[x, y] + " ");
-                }
-                Console.WriteLine();
-            }
-
+            picturebox.Image = bitmap;
+            picturebox.Size = new Size(sloupec * velikost, radek * velikost);
+            
 
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //okno.Location = new Point(0, 30);
+            //okno.Visible = true;
+            //okno.Visible = false;
+            
+            
+
+        }
     }
 }
