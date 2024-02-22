@@ -83,6 +83,24 @@ namespace StachRPR
 
                     if (pole[x, y] == 3)
                     {
+                        // PRIJEM
+                        int squareX = x * velikost;
+                        int squareY = y * velikost;
+                        int squareSize = velikost;
+
+                        int circleX = x * velikost;
+                        int circleY = y * velikost;
+                        int circleSize = velikost;
+
+
+                        g.FillRectangle(Brushes.Yellow, squareX, squareY, squareSize, squareSize);
+                        g.FillEllipse(Brushes.Red, circleX, circleY, circleSize, circleSize);
+
+
+                    }
+
+                    if (pole[x, y] > 3)
+                    {
                         //MISTO ODEVZDANI
                         int squareX = x * velikost;
                         int squareY = y * velikost;
@@ -91,7 +109,7 @@ namespace StachRPR
 
                         g.FillRectangle(Brushes.Green, squareX, squareY, squareSize, squareSize);
 
-                        string text = "1";
+                        string text = (pole[x,y] - 3).ToString();
                         Font font = new Font("Arial", 10, FontStyle.Regular);
                         Brush textBrush = Brushes.Black; // You can change the color of the text
 
@@ -174,13 +192,13 @@ namespace StachRPR
 
             Random rnd = new Random();
 
-            for (int i = 0; i < pocetkoncu;)
+            for (int i = 1; i < pocetkoncu+1;)
             {
                 int xrnd = rnd.Next(sloupec);
                 int yrnd = rnd.Next(radek);
                 if (poles[xrnd, yrnd] == 0)
                 {
-                    poles[xrnd, yrnd] = 3;
+                    poles[xrnd, yrnd] = 3 + i;
                     Console.WriteLine("Konec: " + i + " Pozice: " + xrnd + " " + yrnd);
                     i++;
                 }
@@ -274,6 +292,8 @@ namespace StachRPR
             
         }
 
+
+        
         private void button2_Click(object sender, EventArgs e)
         {
             bool bylProvedenPohyb = false;
@@ -282,55 +302,104 @@ namespace StachRPR
             if (!bylProvedenPohyb)
             {
                 
-                List<(int, int)> poziceObjektu = new List<(int, int)>();
-
+                List<(int, int, int)> poziceRobotu = new List<(int, int, int)>();
                 
+                 
                 for (int x = 0; x < sloupec; x++)
                 {
                     for (int y = 0; y < radek; y++)
                     {
                         if (pole[x, y] == 1)
                         {
-                            poziceObjektu.Add((x, y));
+                            poziceRobotu.Add((x, y,0));
                         }
+                        
                     }
                 }
 
                 
-                foreach (var (x, y) in poziceObjektu)
+                foreach (var (x, y,cislo) in poziceRobotu)
                 {
 
-
-                    if (x != NejblizsiPrijemX(pole, sloupec, radek, x, y))
+                    int prijemx = NejblizsiPrijemX(pole, sloupec, radek, x, y);
+                    int prijemy = NejblizsiPrijemY(pole, sloupec, radek, x, y);
+                    
+                    if (x != prijemx)
                     {
-                        if (x > NejblizsiPrijemX(pole, sloupec, radek, x, y))
+                        if (x > prijemx)
                         {
+                            if (pole[x - 1, y] == 2)
+                            {
+                                pole[x - 1, y] = 3;
+                            }
+                            else
+                            {
+                                pole[x - 1, y] = 1;
+                                pole[x, y] = 0;
+                            }
                             
-                            pole[x - 1, y] = 1;
-                            pole[x, y] = 0;
                         }
-                        else if (x < NejblizsiPrijemX(pole, sloupec, radek, x, y))
+                        else if (x < prijemx)
                         {
-                            pole[x + 1, y] = 1;
-                            pole[x, y] = 0;
+                            if (pole[x + 1, y] == 2)
+                            {
+                                pole[x + 1, y] = 3;
+                            }
+                            else
+                            {
+                                pole[x + 1, y] = 1;
+                                pole[x, y] = 0;
+                            }
+                            
                         }
                     }
                     else
                     {
-                        if (y != NejblizsiPrijemY(pole, sloupec, radek, x, y))
+                        if (y != prijemy)
                         {
-                            if (y > NejblizsiPrijemY(pole, sloupec, radek, x, y))
+                            if (y > prijemy)
                             {
-                                pole[x, y - 1] = 1;
-                                pole[x, y] = 0;
+                                if (pole[x, y - 1] == 2)
+                                {
+                                    pole[x, y - 1] = 3;
+                                }
+                                else
+                                {
+                                    pole[x, y - 1] = 1;
+                                    pole[x, y] = 0;
+                                }
+                                
                             }
-                            else if (y < NejblizsiPrijemY(pole, sloupec, radek, x, y))
+                            else if (y < prijemy)
                             {
-                                pole[x, y + 1] = 1;
-                                pole[x, y] = 0;
+                                if (pole[x, y + 1] == 2)
+                                {
+                                    pole[x, y + 1] = 3;
+                                }
+                                else
+                                {
+                                    pole[x, y + 1] = 1;
+                                    pole[x, y] = 0;
+                                }
+
+                                
                             }
                         }
+                        
                     }
+                    
+
+                    if (pole[x,y]== 3) 
+                    {
+                        Random rnd= new Random();
+                        int rng = rnd.Next(1,pocetKoncu);
+                        
+                        
+                    }
+
+
+
+                    
                 }
 
                 
