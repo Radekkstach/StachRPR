@@ -93,6 +93,7 @@ namespace StachRPR
                         int circleSize = velikost;
 
 
+
                         g.FillRectangle(Brushes.Yellow, squareX, squareY, squareSize, squareSize);
                         g.FillEllipse(Brushes.Red, circleX, circleY, circleSize, circleSize);
 
@@ -201,6 +202,7 @@ namespace StachRPR
                     poles[xrnd, yrnd] = 3 + i;
                     Console.WriteLine("Konec: " + i + " Pozice: " + xrnd + " " + yrnd);
                     i++;
+                    poziceKoncu.Add((xrnd, yrnd));
                 }
 
             }
@@ -274,7 +276,8 @@ namespace StachRPR
 
         }
 
-        
+        List<(int, int, int)> poziceRobotu = new List<(int, int, int)>();
+        List<(int,int)> poziceKoncu = new List<(int, int)>();
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -289,125 +292,174 @@ namespace StachRPR
             GenerovaniPrijmu(pole, sloupec, radek, pocetPrijmu);
             GenerovaniKoncu(pole, sloupec, radek, pocetKoncu);
             GenerovaniMrizky(sloupec, radek, 20, pictureBox1, pole);
+
             
+
+
+            poziceRobotu.Clear();
+            for (int x = 0; x < sloupec; x++)
+            {
+                for (int y = 0; y < radek; y++)
+                {
+                    if (pole[x, y] == 1)
+                    {
+                        poziceRobotu.Add((x, y, 0));
+                    }
+                }
+            }
         }
 
 
-        
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             bool bylProvedenPohyb = false;
-            
-            
+
             if (!bylProvedenPohyb)
             {
-                
-                List<(int, int, int)> poziceRobotu = new List<(int, int, int)>();
-                
-                 
-                for (int x = 0; x < sloupec; x++)
-                {
-                    for (int y = 0; y < radek; y++)
-                    {
-                        if (pole[x, y] == 1)
-                        {
-                            poziceRobotu.Add((x, y,0));
-                        }
-                        
-                    }
-                }
+                // Vytvoření kopie seznamu poziceRobotu, aby nedošlo k chybě "Kolekce byla upravena"
+                List<(int, int, int)> kopiePoziceRobotu = poziceRobotu.ToList();
 
-                
-                foreach (var (x, y,cislo) in poziceRobotu)
+                foreach (var (x, y, cislo) in kopiePoziceRobotu)
                 {
-
                     int prijemx = NejblizsiPrijemX(pole, sloupec, radek, x, y);
                     int prijemy = NejblizsiPrijemY(pole, sloupec, radek, x, y);
-                    
-                    if (x != prijemx)
+                    if (pole[x, y] == 1)
                     {
-                        if (x > prijemx)
+                        if (x != prijemx)
                         {
-                            if (pole[x - 1, y] == 2)
+                            if (x > prijemx)
                             {
-                                pole[x - 1, y] = 3;
-                            }
-                            else
-                            {
-                                pole[x - 1, y] = 1;
-                                pole[x, y] = 0;
-                            }
-                            
-                        }
-                        else if (x < prijemx)
-                        {
-                            if (pole[x + 1, y] == 2)
-                            {
-                                pole[x + 1, y] = 3;
-                            }
-                            else
-                            {
-                                pole[x + 1, y] = 1;
-                                pole[x, y] = 0;
-                            }
-                            
-                        }
-                    }
-                    else
-                    {
-                        if (y != prijemy)
-                        {
-                            if (y > prijemy)
-                            {
-                                if (pole[x, y - 1] == 2)
+                                if (pole[x - 1, y] == 2)
                                 {
-                                    pole[x, y - 1] = 3;
+                                    pole[x - 1, y] = 3;
                                 }
                                 else
                                 {
-                                    pole[x, y - 1] = 1;
-                                    pole[x, y] = 0;
+                                    pole[x - 1, y] = 1;
+                                    
+                                    poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x - 1, y, cislo);
                                 }
-                                
                             }
-                            else if (y < prijemy)
+                            else if (x < prijemx)
                             {
-                                if (pole[x, y + 1] == 2)
+                                if (pole[x + 1, y] == 2)
                                 {
-                                    pole[x, y + 1] = 3;
+                                    pole[x + 1, y] = 3;
+                                    
                                 }
                                 else
                                 {
-                                    pole[x, y + 1] = 1;
-                                    pole[x, y] = 0;
+                                    pole[x + 1, y] = 1;
+                                    
+                                    poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x + 1, y, cislo);
                                 }
-
-                                
                             }
+                            pole[x, y] = 0;
                         }
-                        
+                        else
+                        {
+                            if (y != prijemy)
+                            {
+                                if (y > prijemy)
+                                {
+                                    if (pole[x, y - 1] == 2)
+                                    {
+                                        pole[x, y - 1] = 3;                                        
+                                    }
+                                    else
+                                    {
+                                        pole[x, y - 1] = 1;
+                                        poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x, y - 1, cislo);
+                                    }
+                                }
+                                else if (y < prijemy)
+                                {
+                                    if (pole[x, y + 1] == 2)
+                                    {
+                                        pole[x, y + 1] = 3;
+                                    }
+                                    else
+                                    {
+                                        pole[x, y + 1] = 1;
+                                        poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x, y + 1, cislo);
+                                    }
+                                }
+                            }
+                            pole[x, y] = 0;
+                        }
                     }
+                    Random rnd = new Random();
+                    if (pole[x, y] == 3 && cislo == 0)
+                    {
+                        
+                        int rng = rnd.Next(0, pocetKoncu);
+                        
+                        poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x, y, rng);
+
+                        break;
+                    }
+
                     
 
-                    if (pole[x,y]== 3) 
+                    if (pole[x,y] == 3&& cislo != 0)
                     {
-                        Random rnd= new Random();
-                        int rng = rnd.Next(1,pocetKoncu);
-                        
-                        
+                        int konecx = poziceKoncu[cislo - 1].Item1;
+                        int konecy = poziceKoncu[cislo - 1].Item2;
+                        MessageBox.Show("gay");
+                        if (x != konecx)
+                        {
+                            if (x > konecx)
+                            {
+                                
+                                    pole[x - 1, y] = 3;
+
+                                    poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x - 1, y, cislo);
+                                
+                            }
+                            else if (x < konecx)
+                            {
+                                
+                                    pole[x + 1, y] = 3;
+
+                                    poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x + 1, y, cislo);
+                                
+                            }
+                            pole[x, y] = 0;
+                        }
+                        else
+                        {
+                            if (y != konecy)
+                            {
+                                if (y > konecy)
+                                {
+                                    
+                                        pole[x, y - 1] = 3;
+                                        poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x, y - 1, cislo);
+                                    
+                                }
+                                else if (y < konecy)
+                                {
+                                    
+                                        pole[x, y + 1] = 3;
+                                        poziceRobotu[poziceRobotu.IndexOf((x, y, cislo))] = (x, y + 1, cislo);
+                                    
+                                }
+                            }
+                            pole[x, y] = 0;
+                        }
+
                     }
-
-
-
                     
                 }
 
-                
                 bylProvedenPohyb = true;
-
-                
                 GenerovaniMrizky(sloupec, radek, 20, pictureBox1, pole);
+
             }
         }
+
+
     }
 }
