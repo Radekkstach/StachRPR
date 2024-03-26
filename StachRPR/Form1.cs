@@ -354,7 +354,7 @@ namespace StachRPR
                 {
                     if (pole[x, y] == 1)
                     {
-                        poziceRobotu.Add(new Tuple<int, int, int>(x, y, 0));
+                        poziceRobotu.Add(new Tuple<int, int, int>(x, y, -1));
                     }
                 }
             }
@@ -445,11 +445,11 @@ namespace StachRPR
                         }
                     }
                     
-                    if (pole[x, y] == 3 && cislo == 0)
+                    if (pole[x, y] == 3 && cislo == -1)
                     {
                        
                         Random rnds = new Random();
-                        int rng = rnds.Next(1, pocetKoncu);
+                        int rng = rnds.Next(0, pocetKoncu);
                                                
                         poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x, y, rng);
                         
@@ -458,7 +458,7 @@ namespace StachRPR
 
                     }
                     
-                    if ((pole[x, y] == 3 && cislo != 0) || pole[x,y] == 4)
+                    if ((pole[x, y] == 3 && cislo != -1) || pole[x,y] == 4)
                     {
                         int konecx = poziceKoncu[cislo].Item1;
                         int konecy = poziceKoncu[cislo].Item2;                        
@@ -541,7 +541,7 @@ namespace StachRPR
                                     pole[x - 1, y] = 1;
 
                                 
-                                poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x - 1, y, 0);
+                                poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x - 1, y, -1);
                             }
                             else if (x < prijemx)
                             {
@@ -549,7 +549,7 @@ namespace StachRPR
                                     pole[x + 1, y] = 1;
 
                                 
-                                poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x + 1, y, 0);
+                                poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x + 1, y, -1);
                             }
                             
                             pole[x, y] = 5 + cislo;
@@ -564,7 +564,7 @@ namespace StachRPR
                                         pole[x, y - 1] = 1;
 
                                     
-                                    poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x, y - 1, 0);
+                                    poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x, y - 1, -1);
                                 }
                                 else if (y < prijemy)
                                 {
@@ -572,7 +572,7 @@ namespace StachRPR
                                         pole[x, y + 1] = 1;
 
                                     
-                                    poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x, y + 1, 0);
+                                    poziceRobotu[poziceRobotu.IndexOf(pozice)] = new Tuple<int, int, int>(x, y + 1, -1);
                                 }
                             }
                             

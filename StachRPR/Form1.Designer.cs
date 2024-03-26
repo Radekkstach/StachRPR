@@ -187,6 +187,7 @@
             // 
             // timer1
             // 
+            this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.button2_Click);
             // 
             // checkBox1
