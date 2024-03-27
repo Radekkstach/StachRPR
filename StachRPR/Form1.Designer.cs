@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -54,7 +55,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(8, 7);
+            this.button1.Location = new System.Drawing.Point(8, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(108, 34);
             this.button1.TabIndex = 0;
@@ -72,7 +73,12 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(122, 21);
+            this.numericUpDown1.Location = new System.Drawing.Point(122, 20);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            95,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 3;
@@ -84,7 +90,12 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(248, 21);
+            this.numericUpDown2.Location = new System.Drawing.Point(248, 20);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            48,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown2.TabIndex = 4;
@@ -97,24 +108,24 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(159, 5);
+            this.label1.Location = new System.Drawing.Point(143, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "sloupcu:";
+            this.label1.Text = "Počet sloupců:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(289, 5);
+            this.label2.Location = new System.Drawing.Point(274, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(69, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "řádků:";
+            this.label2.Text = "Počet řádků:";
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(420, 21);
+            this.numericUpDown3.Location = new System.Drawing.Point(420, 20);
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown3.TabIndex = 7;
@@ -126,7 +137,7 @@
             // 
             // numericUpDown4
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(546, 21);
+            this.numericUpDown4.Location = new System.Drawing.Point(546, 20);
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown4.TabIndex = 8;
@@ -138,7 +149,7 @@
             // 
             // numericUpDown5
             // 
-            this.numericUpDown5.Location = new System.Drawing.Point(672, 21);
+            this.numericUpDown5.Location = new System.Drawing.Point(672, 20);
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown5.TabIndex = 9;
@@ -151,53 +162,53 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(460, 7);
+            this.label3.Location = new System.Drawing.Point(445, 4);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "robotu:";
+            this.label3.Text = "Počet robotů:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(588, 6);
+            this.label4.Location = new System.Drawing.Point(572, 4);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 11;
-            this.label4.Text = "prijmu:";
+            this.label4.Text = "Počet přijmu:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(712, 5);
+            this.label5.Location = new System.Drawing.Point(697, 4);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 12;
-            this.label5.Text = "koncu:";
+            this.label5.Text = "Počet konců:";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(821, 18);
+            this.button2.Location = new System.Drawing.Point(798, 17);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 13;
-            this.button2.Text = "button2";
+            this.button2.Text = "Pohyb";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // timer1
             // 
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.button2_Click);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(902, 22);
+            this.checkBox1.Location = new System.Drawing.Point(879, 21);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(48, 17);
+            this.checkBox1.Size = new System.Drawing.Size(116, 17);
             this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "timer";
+            this.checkBox1.Text = "Automatický pohyb";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -205,6 +216,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1087, 572);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button2);
@@ -220,9 +233,11 @@
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "Logistické centrum";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();

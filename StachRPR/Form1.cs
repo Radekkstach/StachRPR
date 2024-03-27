@@ -19,13 +19,14 @@ namespace StachRPR
         int pocetRobotu;
         int pocetPrijmu;
         int pocetKoncu;
+        int velikost = 20;
         List<Tuple<int, int, int>> poziceRobotu = new List<Tuple<int, int, int>>();
         List<Tuple<int, int>> poziceKoncu = new List<Tuple<int, int>>();
         public Form1()
         {
             InitializeComponent();
             pictureBox1.Location = new Point(0, 50);
-            //pictureBox1.Dock = DockStyle.Fill;
+            
             sloupec = (int)numericUpDown1.Value;
             radek = (int)numericUpDown2.Value;
 
@@ -39,7 +40,7 @@ namespace StachRPR
 
 
 
-            GenerovaniMrizky(sloupec, radek, 20, pictureBox1, pole);
+            GenerovaniMrizky(sloupec, radek, velikost, pictureBox1, pole);
 
 
 
@@ -345,7 +346,7 @@ namespace StachRPR
             GenerovaniRobotu(pole, sloupec, radek, pocetRobotu);
             GenerovaniPrijmu(pole, sloupec, radek, pocetPrijmu);
             GenerovaniKoncu(pole, sloupec, radek, pocetKoncu);
-            GenerovaniMrizky(sloupec, radek, 20, pictureBox1, pole);
+            GenerovaniMrizky(sloupec, radek, velikost, pictureBox1, pole);
 
             poziceRobotu.Clear();
             for (int x = 0; x < sloupec; x++)
@@ -773,7 +774,7 @@ namespace StachRPR
                     }
                 }
                 bylProvedenPohyb = true;
-                GenerovaniMrizky(sloupec, radek, 20, pictureBox1, pole);
+                GenerovaniMrizky(sloupec, radek, velikost, pictureBox1, pole);
             }
         }
 
